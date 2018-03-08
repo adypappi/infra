@@ -17,6 +17,8 @@ apt-get install -y git
 # Set proxy configuration for git 
 git config --global http.proxy http://172.16.230.99:8989
 
+
+
 # Clone adipappi github repository of asus gc100c drivers repository
 export headerVersion=$(uname -r)
 moduleName=atlantic
@@ -46,6 +48,8 @@ if [[ ! $(grep -q  atlantic /etc/modules.conf) ]]
 then
    echo atlantic >>  /etc/modules.conf
 fi
+
+# Update initram fs
 update-initramfs -u
 
 # reboot
