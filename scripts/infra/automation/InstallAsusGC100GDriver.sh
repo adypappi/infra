@@ -17,8 +17,6 @@ apt-get install -y git
 # Set proxy configuration for git 
 git config --global http.proxy http://172.16.230.99:8989
 
-
-
 # Clone adipappi github repository of asus gc100c drivers repository
 export headerVersion=$(uname -r)
 moduleName=atlantic
@@ -43,6 +41,8 @@ make
 # remove existing module
 moduleDestination=/lib/modules/$headerVersion/kernel/drivers
 cp $moduleBuildPath/$moduleFile  $moduleDestination/ 
+
+# Check module dependencies
 depmod 
 if [[ ! $(grep -q  atlantic /etc/modules.conf) ]]
 then
