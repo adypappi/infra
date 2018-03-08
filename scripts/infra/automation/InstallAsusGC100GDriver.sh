@@ -13,9 +13,9 @@ isUserRootOrSudo
 
 # Install git and  configure to automatic connection 
 apt-get install -y git
+
+# Set proxy configuration for git 
 git config --global http.proxy http://172.16.230.99:8989
-git config --global github.user "devjj2ee@gmail.com"
-git config --global github.token "87546f11c6a1914dfd422037348e5ac77683950d"
 
 # Clone adipappi github repository of asus gc100c drivers repository
 export headerVersion=$(uname -r)
