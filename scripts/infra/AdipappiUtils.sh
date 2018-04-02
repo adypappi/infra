@@ -77,7 +77,7 @@ function checkPgsql10PlusVersion() {
   fi
 }
 
-#FNCT: 6
+#FNCT: 7
 # Check provided argument agains X.Y  where X and Y re interger
 #
 function checkXDotYVersion() {
@@ -89,7 +89,7 @@ function checkXDotYVersion() {
 }
 
 
-#FNCT: 7
+#FNCT: 8
 #
 # Check provided argument agains X.Y  where X and Y re interger
 function checkXDotYDotZVersion() {
@@ -102,7 +102,7 @@ function checkXDotYDotZVersion() {
 
 
 
-#FNCT: 8
+#FNCT: 9
 #
 #heck that the argument is "OK"
 # $1: version number to check
@@ -114,7 +114,7 @@ function isVersionNumberOK() {
 }
 
 
-#FNCT: 9
+#FNCT: 10
 #
 # Chekc that given debian package is installed or not.
 #
@@ -130,7 +130,7 @@ function isPackageInstalled() {
 }
 
 
-#FNCT: 10
+#FNCT: 11
 # 
 # Add the main ppa repository of postgresql database 
 #
@@ -141,7 +141,7 @@ function addPostgresqlAptRepository() {
 }
 
 
-#FNCT: 11
+#FNCT: 12
 #
 # Add postgresql apt repository media key 
 # 
@@ -161,7 +161,7 @@ function addPostgresqlAptRepositoryKey(){
 }
 
 
-#FNCT: 12
+#FNCT: 13
 # 
 # Check that postgresql is installed or not 
 #
@@ -180,7 +180,7 @@ function checkPostgresql() {
 }
 
 
-#FNCT: 13
+#FNCT: 14
 # Install specific version of postgresql
 #
 #  Script parameters 
@@ -191,7 +191,7 @@ function installPostgresql() {
 }
 
 
-#FNCT: 14
+#FNCT: 15
 #
 #  List all postgresql instance user and group in laapi infrastructure architecture
 #  
@@ -226,7 +226,7 @@ function listPgInstanceGroupUser() {
 }
 
 
-#FUNC: 15
+#FUNC: 16
 # Create selft signed certificat for sysetele. Three files are generated .key .csr and .crt
 #
 # Generate certificat with openssl rsa4096
@@ -270,7 +270,7 @@ function createDomainSSLCertificat() {
   openssl x509 -req -days 730 -in ${CERT_FILE_PREFIX}.csr -signkey ${CERT_FILE_PREFIX}.key -out ${CERT_FILE_PREFIX}.crt
 }
 
-#FUNC: 15
+#FUNC: 17
 # Check that the provided String represents a correct username or group name in linux lsb
 function isValidUsername() {
   res=$(echo $1 | grep -Po '^([a-z_][a-z_0-9]{2,16})$')
@@ -282,7 +282,7 @@ function isValidUsername() {
 }
 
 
-#FUNC: 16 
+#FUNC: 18
 # Check that linux user exists or not. 
 # 
 #parameters:mandatory
@@ -297,7 +297,7 @@ function isUserExists() {
 }
 
 
-#FUNC: 17
+#FUNC: 19
 #   $1: username to check
 #return: OK is user exists KO otherwise. 
 function isUserExists() {
@@ -309,7 +309,7 @@ function isUserExists() {
 }
 
 
-#FUNC: 17
+#FUNC: 20
 #parameters:mandatory
 #   $1: username to check
 #return: OK is user exists KO otherwise. 
@@ -322,7 +322,7 @@ function isUserExists() {
 }
 
 
-#FUNC: 17
+#FUNC: 21
 # Check that linux group exists or not. 
 # 
 #parameters:mandatory
@@ -337,7 +337,7 @@ function isGroupExists() {
 }
 
 
-#FUNC: 18 
+#FUNC: 22 
 # Check that given user exist and it is in given group. 
 # 
 #parameters:mandatory
@@ -354,7 +354,7 @@ function isUserInGroup() {
 }
 
 
-#FUNC: 19
+#FUNC: 23
 # Return the ipv4 of a nic interface from its name by using ip command
 #
 #parameters:mandatory
@@ -367,5 +367,6 @@ function getNicIpv4(){
 }
 
 
-#FUNC: 20
+#FUNC: 24
+# @todo
 # Return the ipv6 of a nic interface from its name by using ip command
