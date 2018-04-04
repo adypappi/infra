@@ -14,7 +14,7 @@ mkdir -p /papi/appsrv
 mkdir -p /papi/docs
 mkdir -p /papi/appsrv
 mkdir -p /papi/dataset
-mkdir -p /papibackup
+mkdir -p /papi/papibackup # normally must be somewhere other than /papi
 
 # All papi FS are member of linux group adimida 
 sudo chown -R :adimida  /papi
