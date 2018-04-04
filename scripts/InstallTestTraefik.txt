@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+'''bash
+version=1.3.6
+traefikBinary=traefik-v${version}.src.tar.gz
+downloadUrl=https://github.com/containous/traefik/releases/download/v${version}/$traefikBinary
+downloads=/papi/downloads
+cd $downloads && curl -LO $downloadUrl
+traefikHomeDir=/caldrons/trfc    
+sudo install -d /caldrons/trfc -m 0775 -o adimida -g adm
+tar -xvf $downloads/$traefikBinary -C $traefikHomeDir 
+'t
+'
