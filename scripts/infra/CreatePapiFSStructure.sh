@@ -15,3 +15,6 @@ mkdir -p /papi/docs
 mkdir -p /papi/appsrv
 mkdir -p /papi/dataset
 mkdir -p /papibackup
+
+# All papi FS are member of linux group adimida 
+sudo chown -R :adimida  /papi
