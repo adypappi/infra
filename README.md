@@ -1,6 +1,6 @@
 <h1 align="center">Infra</h1>
 <div align="center">
-  :steam_locomotive::train::train::train::train::train:
+  :steam_locomotive::hst::hst::hst::hst::hst:
 </div>
 
 # Presentation 
