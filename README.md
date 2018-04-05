@@ -4,8 +4,9 @@
  velocity and end-user quality improvement. Each datacenter operations is a triplet of {Input, ParametricActionFunction, Output} 
  
  - Input :arrow_right: ParametricActionFunction_{Quality, Velocity} :arrow_right: Output 
+ - Extreme programming pair : One implement and test Other apply on real concrete case.  
 
-Quality 
+Quality is the perception of the user when he use the triplet and show that the result is stable clean and reliable and reproductible.
 
 # Presentation 
 
