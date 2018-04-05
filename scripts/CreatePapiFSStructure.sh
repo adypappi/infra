@@ -8,6 +8,7 @@ mkdir -p /papi/infra/cntrs
 mkdir -p /papi/infra/vms
 mkdir -p /papi/infra/scripts
 mkdir -p /papi/infra/tools
+mkdir -p /papi/infra/tools/pxe
 mkdir -p /papi/infra/docs
 mkdir -p /papi/infra/drivers
 mkdir -p /papi/tools/binary
