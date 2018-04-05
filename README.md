@@ -1,6 +1,6 @@
 <h1 align="center">Infra</h1>
 <div align="center">
-  ::bike::car::aircraft:missille
+  ::bike::car::aircraft::
 </div>
 
 # Presentation 
