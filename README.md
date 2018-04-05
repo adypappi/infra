@@ -7,7 +7,7 @@
  - Extreme programming pair : One implement and test Other apply on real concrete case.  
  - Each ParametricActionFunction is reversible. 
 
-Quality is the perception of the user when he use the triplet and show that the result is stable clean and reliable and reproductible.
+Quality is the perception of the user when he use the triplet and show that the result is stable clean reliable and reproductible.
 
 # Presentation 
 
