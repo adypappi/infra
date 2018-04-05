@@ -29,3 +29,7 @@ sudo mount --make-shared /papi
 # Create /adypappi as a bind mounting of /papi  
 sudo mkdir -p /adypappi
 sudo mount --bind /papi /adypappi
+
+# Caution for git management
+echo "Add .gitkeep in each empty director of tree to take them in account in git commit and push" 
+
