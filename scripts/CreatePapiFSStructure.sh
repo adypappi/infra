@@ -16,7 +16,6 @@ mkdir -p /papi/tools/src
 mkdir -p /papi/app
 mkdir -p /papi/appsrv
 mkdir -p /papi/docs
-mkdir -p /papi/appsrv
 mkdir -p /papi/dataset
 mkdir -p /papi/papibackup # normally must be somewhere other than /papi
 
