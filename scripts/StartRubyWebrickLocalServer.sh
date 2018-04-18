@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# this script run a webrick server  installed by adipappi script : /papi/scripts/infra/InstallPostgresqlRubyRedminePuma.sh 
+# this script run a webrick server  installed by adipappi script : /papi/infra/scripts/InstallPostgresqlRubyRedminePuma.sh 
 ## Start webrick server with 0.0.0.0 binding + http port 8090
-source /papi/scripts/infra/AdipappiUtils.sh
+source /papi/infra/scripts/AdipappiUtils.sh
 
 # Check that user is sudo
 isUserRootOrSudo

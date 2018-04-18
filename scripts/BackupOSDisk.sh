@@ -18,7 +18,7 @@ else
   osDisk=$1
   backupDisk=$2
 fi
-logDir=/papi/scripts/infra/logs
+logDir=/papi/infra/scripts/logs
 logFileName="$logDir/$(basename $0).$(date +%s).exec.log"
 touch $logFileName
 sudo su  - -c "pv -B 64K < $osDisk  > $backupDisk | tee  $logFileName"
