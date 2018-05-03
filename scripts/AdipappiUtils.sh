@@ -5,7 +5,6 @@
 #set -x
 
 # Adipappi infra scripts repository root 
-export PAPI_SCRIPTS_HOME=/papi/scripts/infra
 export OK="OK"
 export KO="KO"
 
@@ -166,12 +165,12 @@ function addPostgresqlAptRepositoryKey(){
 # Check that postgresql is installed or not 
 #
 # Script parameters:  
-#    $1: The name of script in ${PAPI_SCRIPTS_HOME} folder used to get postgresql version
+#    $1: The name of script in ${PAPI_INFRA_SCRIPTS} folder used to get postgresql version
 #    $2: version number of postgresql to check
 # Return: 'OK' if postgresql is installed. 'KO' if not
 #
 function checkPostgresql() {
-  pgVersion=$(${PAPI_SCRIPTS_HOME}/$1)
+  pgVersion=$(${PAPI_INFRA_SCRIPTS}/$1)
    if [[ "$pgVersion" == "$2" ]]; then
        echo $OK
     else
@@ -354,6 +353,41 @@ function isUserInGroup() {
 }
 
 
+#FUNC: 22 
+#  Add  a user to it's group group  with password. If the group already exists set to the primary group of user to this group.
+# If the group does not exist, create and set user primary 's group to this group.
+# 
+#parameters:mandatory
+#   $1: user name to add
+#   $2: primary group name to which user will be added
+#   $3: password of user
+#return: OK if user has been created into group. Otherwise return KO 
+function createUserInGroupWithPassword() {
+  isUserRootOrSudo
+  if [[  $# != 3 ]]; then
+    printf "The Function ${FUNCNAME} must be used with 3 arguments as \n"
+    printf "Usage: ${FUNCNAME} <userName> <GroupName> <userPassword>\n"
+    printf "Example: ${FUNCNAME} papiwebadmin adimida WebAdmin*_45\n"
+    echo $KO
+  else
+    local userName=$1
+    local groupName=$2
+    local userPassword=$3
+    adduser --disabled-password --gecos "" $userName
+    echo "$userName:$userPassword" | sudo chpasswd
+    
+    # Check if the group exist else create group 
+     if [[ $(isGroupExists $groupName) == $KO ]]; then
+       groupadd $groupName
+     fi
+       usermod -g $groupName $userName   
+     echo $OK
+  fi
+}
+
+
+
+
 #FUNC: 23
 # Return the ipv4 of a nic interface from its name by using ip command
 #
@@ -363,7 +397,6 @@ function isUserInGroup() {
 #return: ipv4 of nic or empty string. 
 function getNicIpv4(){
   local res=$(ip addr show $1 2>/dev/null | grep -Po "(?<=inet\s)((\d+\.){3}\d+)")
-  echo $res
 }
 
 
