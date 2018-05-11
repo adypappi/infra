@@ -1,0 +1,51 @@
+# Template used to create this container: /usr/share/lxc/templates/lxc-download
+# Parameters passed to the template: -d debian -r stretch -a amd64 --no-validate
+# Template script checksum (SHA-1): 740c51206e35463362b735e68b867876048a8baf
+# For additional config options, please look at lxc.container.conf(5)
+
+# Uncomment the following line to support nesting containers:
+#lxc.include = /usr/share/lxc/config/nesting.conf
+# (Be aware this has security implications)
+
+# Parameters passed to the template: -d debian -r stretch -a amd64
+# Template script checksum (SHA-1): 740c51206e35463362b735e68b867876048a8baf
+# Uncomment the following line to support nesting containers:
+# (Be aware this has security implications)
+#Configuration of host ←→ container uid gid mapping de adimida (cat /etc/subuid)”
+# Network config for mac vlan interfaces connected by default to nic3 (enp6s0)
+# 'Secure" mounting
+# Generic log configuratin for cntr instances
+# hostname of the container 
+# Distribution configuration
+# Container specific configuration
+# Network configuration external macvlan
+
+# Distribution configuration
+lxc.include = /usr/share/lxc/config/debian.common.conf
+lxc.include = /usr/share/lxc/config/debian.userns.conf
+lxc.arch = linux64
+
+# Container specific configuration
+# Template used to create this container: /usr/share/lxc/templates/lxc-download
+# For additional config options, please look at lxc.container.conf(5)
+#lxc.include = /usr/share/lxc/config/nesting.conf
+lxc.utsname = <cntrp0>
+lxc.arch = linux64
+# Include = /etc/lxc/default.conf
+lxc.id_map = u 0 362144 65536
+lxc.id_map = g 0 362144 65536
+lxc.mount.auto = proc:mixed sys:ro cgroup:mixed
+lxc.logfile = /caldrons/cntrs/lxcs/logs/<vmtest>.log
+lxc.loglevel = TRACE
+lxc.rootfs = /home/lxcadmin/.local/share/lxc/<vmtest>/rootfs
+lxc.rootfs.backend = dir
+
+# Network configuration
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = <lxcbr0>  # Host's bridge to which the lxc container's nic will be linked
+lxc.network.name = <nic0>@${lxc.network.link}
+lxc.network.ipv4 = <172.16.224.4/20> # cidr notation network ip
+lxc.network.hwaddr = <aa:11:22:33:44:bb> # set a  mac of container nic
+lxc.network.ipv4.gateway = <172.16.230.99> # The same gateway as the host's bridge nic 
+

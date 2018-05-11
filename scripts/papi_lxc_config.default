@@ -1,0 +1,31 @@
+# Template used to create this container: /usr/share/lxc/templates/lxc-download
+# Parameters passed to the template: -d debian -r stretch -a amd64
+# Template script checksum (SHA-1): 740c51206e35463362b735e68b867876048a8baf
+# For additional config options, please look at lxc.container.conf(5)
+
+# Uncomment the following line to support nesting containers:
+#lxc.include = /usr/share/lxc/config/nesting.conf
+# (Be aware this has security implications)
+
+#Configuration of host ←→ container uid gid mapping de adimida (cat /etc/subuid)”
+# Network config for mac vlan interfaces connected by default to nic3 (enp6s0)
+# 'Secure" mounting
+# Generic log configuratin for cntr instances
+
+# Distribution configuration
+lxc.arch = linux64
+
+# Container specific configuration
+# Include = /etc/lxc/default.conf
+lxc.id_map = u 0 362144 65536
+lxc.id_map = g 0 362144 65536
+lxc.mount.auto = proc:mixed sys:ro cgroup:mixed
+lxc.logfile = /caldrons/cntrs/lxcs/logs/vmtest1.log
+lxc.loglevel = TRACE
+
+# Network configuration external macvlan
+lxc.network.0.type = macvlan
+lxc.network.0.flags = up
+lxc.network.0.link = enp6s0
+lxc.network.0.hwaddr = 4a:49:43:49:79:bd
+lxc.network.0.ipv4.address = 172.16.224.3/20
