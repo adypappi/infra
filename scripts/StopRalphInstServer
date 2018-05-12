@@ -1,0 +1,6 @@
+#!/usr/bin/env bash 
+# Stop ralph server form pid file
+PID_FILE_ROOT="/caldrons/run/djangoralph"
+PID_FILE="ralph.pid"
+/bin/kill -9  $(cat ${PID_FILE_ROOT}/$PID_FILE)
+

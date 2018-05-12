@@ -1,8 +1,0 @@
-     lxc-create 20180503140041.227 INFO     lxc_confile - confile.c:config_idmap:1531 - read uid map: type u nsid 0 hostid 100000 range 65536
-     lxc-create 20180503140041.227 INFO     lxc_confile - confile.c:config_idmap:1531 - read uid map: type g nsid 0 hostid 100000 range 65536
-     lxc-create 20180503140041.416 INFO     lxc_confile - confile.c:config_idmap:1531 - read uid map: type u nsid 0 hostid 100000 range 65536
-     lxc-create 20180503140041.416 INFO     lxc_confile - confile.c:config_idmap:1531 - read uid map: type g nsid 0 hostid 100000 range 65536
-     lxc-create 20180503140404.144 WARN     lxc_confile - confile.c:config_pivotdir:1910 - lxc.pivotdir is ignored.  It will soon become an error.
-     lxc-create 20180503140404.144 INFO     lxc_confile - confile.c:config_idmap:1531 - read uid map: type u nsid 0 hostid 100000 range 65536
-     lxc-create 20180503140404.144 INFO     lxc_confile - confile.c:config_idmap:1531 - read uid map: type g nsid 0 hostid 100000 range 65536
-     lxc-create 20180503140404.146 INFO     lxc_create_ui - tools/lxc_create.c:main:324 - container da/0 created
