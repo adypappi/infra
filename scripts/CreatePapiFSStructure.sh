@@ -22,14 +22,6 @@ mkdir -p /papi/papibackup # normally must be somewhere other than /papi
 # All papi FS are member of linux group adimida 
 sudo chown -R :adimida  /papi
 
-# Mark /papi as shared mount 
-
-sudo mount --make-shared /papi
-
-# Create /adypappi as a bind mounting of /papi  
-sudo mkdir -p /adypappi
-sudo mount --bind /papi /adypappi
-
 # Caution for git management
 echo "Add .gitkeep in each empty director of tree to take them in account in git commit and push" 
 

@@ -23,7 +23,7 @@ function isUserRootOrSudo() {
    local SUDO_RIGHTS_MSG="This script must be run with sudo command or root"	
    if [ ! $UID -eq 0 ] ; then
       printf "${SUDO_RIGHTS_MSG}\n"
-      exit -1
+      return -1
    fi
    return 0
 }
@@ -376,6 +376,7 @@ function createUserInGroupWithPassword() {
     adduser --disabled-password --gecos "" $userName
     echo "$userName:$userPassword" | sudo chpasswd
     
+
     # Check if the group exist else create group 
      if [[ $(isGroupExists $groupName) == $KO ]]; then
        groupadd $groupName
