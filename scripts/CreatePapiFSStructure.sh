@@ -20,7 +20,7 @@ mkdir -p /papi/dataset
 mkdir -p /papi/papibackup # normally must be somewhere other than /papi
 
 # All papi FS are member of linux group adimida 
-sudo chown -R :adimida  /papi
+sudo setfacl -R -m g:adimida:rwx  /papi
 
 # Caution for git management
 echo "Add .gitkeep in each empty director of tree to take them in account in git commit and push" 
