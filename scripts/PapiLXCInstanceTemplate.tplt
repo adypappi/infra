@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# LXC instance template file
+# subuid and subgid are related to lxcadmin user
+echo "Configure the data used in lxc's template file"
+
+## Include environments
+source /etc/environment
+source $PAPI_INFRA_SCRIPTS/PapiLXCInstanceFS.cfg
+source $PAPI_INFRA_SCRIPTS/PapiLXCInstanceNetworkProperties.cfg
+
+# Variable used in cntr.default.config template file
+cntrName=$cntrName
+subUid=$(cat /etc/subuid | awk -F ":" '/lxcadmin/ {print $2}')
+subUidCount=$(cat /etc/subuid | awk -F ":" '/lxcadmin/ {print $3}')
+subGid=$(cat /etc/subgid | awk -F ":" '/lxcadmin/ {print $2}')
+subGidCount=$(cat /etc/subgid | awk -F ":" '/lxcadmin/ {print $3}')
+cntrRootFS=$cntrRootFS
+
+# this value must be the first free ip address of green interface from 172.16.224.1 → to 172.16.239.254
+# The name of host’s bridge to which container’s nic will be attached
+bridgeNicName=$bridgeNicName
+
+# Container internal nic name attached to bridge
+cntrNicName=$cntrNicName
+cntrIpCIDR=$cntrIpCIDR
+
+# container internal nic mac address
+cntrNicMacAddress=$cntrNicMacAddress
+cntrAndHostGateway=$hostBridgeGateway
+
