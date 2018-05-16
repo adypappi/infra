@@ -33,11 +33,8 @@ mkdir -p /papi/papibackup # normally must be somewhere other than /papi
 sudo setfacl -R -m g:$PAPI_ADM_GROUP:rwx  $PAPI
 
 # Set the /etc/environment
-sudo su - $PAPI_ADM_USER
-cd $PAPI_INFRA
-git clone $PAPI_GIT_INFRA_REPO
-git checkout dev
-git status
+echo "Clone adipappi git repository $PAPI_GIT_INFRA_REPO"
+sudo su - $PAPI_ADM_USER -c "cd $PAPI_INFRA; git clone $PAPI_GIT_INFRA_REPO;git checkout dev;git status"
 
 # Caution for git management
 echo "Add .gitkeep in each empty director of tree to take them in account in git commit and push" 
