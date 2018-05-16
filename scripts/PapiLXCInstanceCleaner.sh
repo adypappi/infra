@@ -15,7 +15,7 @@ source $PAPI_INFRA_SCRIPTS/AdipappiUtils.sh
 if [[ $# -ne 1  ]]
 then 
   printf "A mandatory argument container name must be provided to script $0\nUsage: $0 vmproto\n"
-  return -1
+  echo  -1
 else  
 # Do this to avoid deleting your / !!!!!!
 cntrName=$1
@@ -48,6 +48,8 @@ then
 
   # Set the facl x for other user on LXC ADMIN USER HOME
   sudo setfacl -R -m o::rx ${LXCADMIN_HOME}
+
+  echo 0
 fi
 
 
