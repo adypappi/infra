@@ -10,17 +10,13 @@ export PAPI_INFRA_SCRIPTS=$PAPI_INFRA/scripts
 # Adypappi repository github --> move to gitlab
 PAPI_GIT_ACCOUNT=adypappi
 PAPI_GIT_REPO=infra
-PAPI_GIT_INFRA_REPO=https://github.com/$adypappi/infra.git
+PAPI_GIT_INFRA_REPO=https://github.com/$PAPI_GIT_ACCOUNT/infra.git
+
+# reset forlder
 
 # Script allowing to create the fs tree structure of papi cloud management plateform 
 mkdir -p /papi/devprj
-mkdir -p /papi/infra/cntrs
-mkdir -p /papi/infra/vms
-mkdir -p /papi/infra/scripts
-mkdir -p /papi/infra/tools
-mkdir -p /papi/infra/tools/pxe
-mkdir -p /papi/infra/docs
-mkdir -p /papi/infra/drivers
+mkdir -p /papi/infra
 mkdir -p /papi/tools/binary
 mkdir -p /papi/tools/src
 mkdir -p /papi/app
@@ -34,7 +30,7 @@ sudo setfacl -R -m g:$PAPI_ADM_GROUP:rwx  $PAPI
 
 # Set the /etc/environment
 echo "Clone adipappi git repository $PAPI_GIT_INFRA_REPO"
-sudo su - $PAPI_ADM_USER -c "cd $PAPI_INFRA; git clone $PAPI_GIT_INFRA_REPO;git checkout dev;git status"
+sudo su - $PAPI_ADM_USER -c "cd $PAPI; git clone $PAPI_GIT_INFRA_REPO;cd $PAPI_INFRA;git checkout dev;git status"
 
 # Caution for git management
 echo "Add .gitkeep in each empty director of tree to take them in account in git commit and push" 
