@@ -21,6 +21,8 @@ if [[ $(isUserRootOrSudo) != "-1" ]]; then
   # Mount all the zfs on the host
   sudo zfs mount -a -O
   # Set permission for lxc user and group 
-  sudo setfacl -R -m u:${PAPI_CNTR_ADM_USER}:rwx,g:${PAPI_ADM_GROUP}:rwx,o::x /caldrons
+  sudo setfacl -R -m u:${PAPI_CNTR_ADM_USER}:rwx,g:${PAPI_CNTR_ADM_GROUP}:rwx,o::x /caldrons
+  sudo chown -R ${PAPI_ADM_USER}:${PAPI_ADM_GROUP} /caldrons
+  sudo chown -R ${PAPI_CNTR_ADM_USER}:${PAPI_CNTR_ADM_GROUP} /caldrons/cntrs/lxcs
 fi
 
