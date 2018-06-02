@@ -1,6 +1,9 @@
 #!/usr/bin/env lua
 --[[ Install lxc dependencies ]]
 -- Table  containing the list of debian package necessary for lxc
+
+-- import dep
+
 local lxcDeb9Deps={'lxc','cgmanager', 'uidmap', 'cgmanager', 'cgroup-bin', 'libpam-systemd', 'libpam-cgroup','libpam-cgfs', 'bridge-utils', 'libvirt0'}
 
 -- local useful variables  
@@ -43,14 +46,20 @@ function getCommandFullPath(cmd)
   end
 end
 
+-- Alias for luaunit
+local lu = require('luaunit')
 
+-- Unit Test getCommandFullPath Get the path of apt-get, dstat, ip etc, lxc-ls. 
+local cmd={
+	aptGet={"apt-get","/usr/bin/apt-get"}, 
+	dstat={"dstat","/usr/bin/dstat"}, 
+	iptools={"ip","/bin/ip"}, 
+	lxcls={"lxc-ls","/usr/bin/lxc-ls"}
+}
+
+for k,v in pairs(cmd) do 
+  lu.assertEquals(v[2], getCommandFullPath(v[1])) 
+end
 
 -- Generate apt-get install <string> 
 local pkgs=table.concat(lxcDeb9Deps, EMPTY_STRING);
-
--- Get the path of apt-get, dstat, ip etc, lxc-ls. 
-local cmd={aptGet="apt-get", dstat="dstat", iptools="ip", lxcls='lxc-ls'}
-for k,v in pairs(cmd) do 
-  print(k .. "-->" .. getCommandFullPath(v)) 
-end
-
