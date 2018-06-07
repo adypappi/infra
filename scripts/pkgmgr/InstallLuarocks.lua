@@ -2,12 +2,14 @@
 local workingDir=os.getenv("PAPI_INFRA_SCRIPTS").."/pkgmgr"
 local version="2.4.4"
 local testPkg="luasocket"
-local luarocksDeps={"unzip", "liblua5.3-dev"}
+local luarocksDeps={"unzip", "liblua5.3-dev", "lua-sec}", "lua-sec-dev"}
 local luarocksInstallCmd={
-  "wget -N https://luarocks.org/releases/luarocks-"..version..".tar.gz"
+  "wget https_proxy=http://172.16.230.99:8989  http_proxy=http://172.16.230.99:8989  -N https://luarocks.org/releases/luarocks-"..version..".tar.gz"
+ ,"sudo rm -rf ~/.cache/luarocks"
+ ,'git config --global url."https://".insteadOf git://'
   ,"tar zxpf luarocks-"..version..".tar.gz"
   ,"cd luarocks-"..version
-  ,"sudo ./configure; sudo make bootstrap"}
+  ,"./configure; sudo make bootstrap"}
 
 -- CHeck that luarocks is not installed 
 local cmdOutput=os.tmpname()
@@ -23,10 +25,10 @@ if luarocksInstalled == nil then
   os.execute(cmdLuable)
 
 -- Install luasocket package and check that it is correctly installed
-  os.execute("sudo luarocks install "..testPkg)
+  os.execute("luarocks install --local "..testPkg)
   cmdOutput=os.tmpname()
 -- Check if the package was been installed 
-  os.execute("luarocks list | grep "..testPkg.." >"..cmdOutput)
+  os.execute("luarocks list --local  | grep "..testPkg.." >"..cmdOutput)
   local testPkgInstalled=io.open(cmdOutput):read()
   if testPkgInstalled ~= testPkg then
     print("Warning the package "..testPkg.." was not been installed with luarocks")
