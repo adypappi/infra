@@ -1,0 +1,20 @@
+#!/usr/bin/env bash 
+# Main script allow to run django ralph server
+# Parameters
+USER=adimida
+PORT=9000
+REMOTE_IP=0.0.0.0
+PID_FILE_ROOT=/caldrons/djangoralph/run
+PID_FILE=ralph.pid
+RALPH_BIN_ROOT="/opt/ralph/ralph-core/bin"
+
+# Use this command in sudo and nohup 
+startRalph="$RALPH_BIN_ROOT/ralph runserver --noreload -v 2 ${REMOTE_IP}:${PORT}"
+getPidOfRalph="/bin/ps -def | /bin/grep  '$RALPH_BIN_ROOT/python $RALPH_BIN_ROOT/ralph runserver --noreload -v 2 ${REMOTE_IP}:${PORT}' | /bin/grep -v grep | /usr/bin/awk '{print \$2}'"
+cd /home/$USER
+/usr/bin/nohup sudo -i $startRalph &
+sleep 3s
+# Get the PID of ralph and put it into djangoralph run folder. 
+pidOfRalph=$(eval $getPidOfRalph )
+echo $pidOfRalph | tee  ${PID_FILE_ROOT}/$PID_FILE
+

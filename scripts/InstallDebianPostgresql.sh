@@ -18,7 +18,7 @@ set -e
 
 ## laapi infra scripts util functions
 export PAPI_UTIL_SCRIPT_NAME=AdipappiUtils.sh
-source ${PAPI_SCRIPTS_HOME}/${PAPI_UTIL_SCRIPT_NAME}
+source ${PAPI_INFRA_SCRIPTS}/${PAPI_UTIL_SCRIPT_NAME}
 export TOOLS_ROOT_FOLDER=/caldrons
 
 
@@ -96,8 +96,8 @@ isInstExists=$(echo ${pgAllInstConfigs[@]} | grep -x "$pgInstConfig" | wc -w)
 echo "ISEX$isInstExists"
 if [[ $isInstExists -eq 0  ]]; then 
   printf "Create the postgresql instance with the following configs(user, group, inst) :  $pgInstConfig"
-  $PAPI_SCRIPTS_HOME/CreatePostgresqlInstance.sh $pgInstIndex ${PG_INST_ROOT_DIR} $postgresqlVersion
-  $PAPI_SCRIPTS_HOME/RestartPostgresqlInstance.sh pginstusr${pgInstIndex} $postgresqlVersion
+  $PAPI_INFRA_SCRIPTS/CreatePostgresqlInstance.sh $pgInstIndex ${PG_INST_ROOT_DIR} $postgresqlVersion
+  $PAPI_INFRA_SCRIPTS/RestartPostgresqlInstance.sh pginstusr${pgInstIndex} $postgresqlVersion
 fi
-$PAPI_SCRIPTS_HOME/CreateDatabaseInPostgresqlInstance.sh $pgDatabaseName  $pgDatabaseUser $pgDatabasePassword  ${PG_INST_USR} $postgresqlVersion
+$PAPI_INFRA_SCRIPTS/CreateDatabaseInPostgresqlInstance.sh $pgDatabaseName  $pgDatabaseUser $pgDatabasePassword  ${PG_INST_USR} $postgresqlVersion
 

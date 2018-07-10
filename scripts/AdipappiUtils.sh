@@ -5,7 +5,6 @@
 #set -x
 
 # Adipappi infra scripts repository root 
-export PAPI_SCRIPTS_HOME=/papi/scripts/infra
 export OK="OK"
 export KO="KO"
 
@@ -21,12 +20,12 @@ export IPV4_REGEX="^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|
 # Exit code -1 : if $1 is not equal to 1
 # Return 0. 
 function isUserRootOrSudo() {
-   local SUDO_RIGHTS_MSG="This script must be run with sudo command or root"	
-   if [ ! $UID -eq 0 ] ; then
-      printf "${SUDO_RIGHTS_MSG}\n"
-      exit -1
-   fi
-   return 0
+	local SUDO_RIGHTS_MSG="This script must be run with sudo command or root"	
+	if [ ! $UID -eq 0 ] ; then
+		printf "${SUDO_RIGHTS_MSG}\n"
+		return -1
+	fi
+	return 0
 }
 
 
@@ -35,8 +34,8 @@ function isUserRootOrSudo() {
 #
 # Print any array each element in one line into console output
 function printArray {
-  tab=("$@")
-  printf '%s\n' "${tab[@]}" 
+	tab=("$@")
+	printf '%s\n' "${tab[@]}" 
 }
 
 
@@ -44,7 +43,7 @@ function printArray {
 #
 #
 function aptgetUpdate {
-  apt-get update
+	apt-get update
 }
 
 
@@ -52,7 +51,7 @@ function aptgetUpdate {
 #
 #
 function aptgetForceUpgrade {
-  apt-get upgrade -y
+	apt-get upgrade -y
 }
 
 
@@ -60,9 +59,9 @@ function aptgetForceUpgrade {
 # Install list of package or single package
 #
 function aptgetForceInstall {
-  for pkg in $(echo $@); do 
-    apt-get install -y $pkg
-  done
+	for pkg in $(echo $@); do 
+		apt-get install -y $pkg
+	done
 }
 
 
@@ -71,21 +70,21 @@ function aptgetForceInstall {
 #
 function checkPgsql10PlusVersion() {
 	if [[ $1 =~ [0-9]+(\.[0-9])? ]]; then
-       echo $OK
-    else
-       echo $KO
-  fi
+		echo $OK
+	else
+		echo $KO
+	fi
 }
 
 #FNCT: 7
 # Check provided argument agains X.Y  where X and Y re interger
 #
 function checkXDotYVersion() {
-  if [[ $1 =~ [0-9]+\.[0-9]+ ]]; then
-       echo $OK
-    else
-       echo $KO
-  fi
+	if [[ $1 =~ [0-9]+\.[0-9]+ ]]; then
+		echo $OK
+	else
+		echo $KO
+	fi
 }
 
 
@@ -93,11 +92,11 @@ function checkXDotYVersion() {
 #
 # Check provided argument agains X.Y  where X and Y re interger
 function checkXDotYDotZVersion() {
-  if [[ $1 =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
-       echo $OK
-    else
-       echo $KO
-  fi
+	if [[ $1 =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+		echo $OK
+	else
+		echo $KO
+	fi
 }
 
 
@@ -107,10 +106,10 @@ function checkXDotYDotZVersion() {
 #heck that the argument is "OK"
 # $1: version number to check
 function isVersionNumberOK() {
-  if [[ "$1" != "OK" ]]; then
-    printf "The version number $1 KO (is incorrect)\n"
-    exit -2
-  fi
+	if [[ "$1" != "OK" ]]; then
+		printf "The version number $1 KO (is incorrect)\n"
+		exit -2
+	fi
 }
 
 
@@ -121,12 +120,12 @@ function isVersionNumberOK() {
 #  parm: $1 package name
 #  return: OK if package is installed and KO otherwise.
 function isPackageInstalled() {
-   cmd=$(dpkg -s $1 2>/dev/null >/dev/null)
-   if [[ $cmd -eq 0 ]]; then
-       echo $OK
-    else
-       echo $KO
-   fi
+	cmd=$(dpkg -s $1 2>/dev/null >/dev/null)
+	if [[ $cmd -eq 0 ]]; then
+		echo $OK
+	else
+		echo $KO
+	fi
 }
 
 
@@ -136,8 +135,8 @@ function isPackageInstalled() {
 #
 # return OK if postgresq's  apt repository is already installed
 function addPostgresqlAptRepository() {
-  sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-  printf "OK\n"
+	sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+	printf "OK\n"
 }
 
 
@@ -148,16 +147,16 @@ function addPostgresqlAptRepository() {
 # Need sudo user
 #   
 function addPostgresqlAptRepositoryKey(){
-  local pkgName1="wget"
-  local pkgName2="ca-certificates"
-  for pkg in $pkgName1 $pkgName2; do
-    if [[ $(isPackageInstalled $pkg) == $KO ]]; then
-     aptgetForceInstall $pkg
-    fi
-  done
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc|apt-key add -
-  aptgetUpdate
-  aptgetForceUpgrade
+	local pkgName1="wget"
+	local pkgName2="ca-certificates"
+	for pkg in $pkgName1 $pkgName2; do
+		if [[ $(isPackageInstalled $pkg) == $KO ]]; then
+			aptgetForceInstall $pkg
+		fi
+	done
+	wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc|apt-key add -
+	aptgetUpdate
+	aptgetForceUpgrade
 }
 
 
@@ -166,17 +165,17 @@ function addPostgresqlAptRepositoryKey(){
 # Check that postgresql is installed or not 
 #
 # Script parameters:  
-#    $1: The name of script in ${PAPI_SCRIPTS_HOME} folder used to get postgresql version
+#    $1: The name of script in ${PAPI_INFRA_SCRIPTS} folder used to get postgresql version
 #    $2: version number of postgresql to check
 # Return: 'OK' if postgresql is installed. 'KO' if not
 #
 function checkPostgresql() {
-  pgVersion=$(${PAPI_SCRIPTS_HOME}/$1)
-   if [[ "$pgVersion" == "$2" ]]; then
-       echo $OK
-    else
-       echo $KO
-    fi
+	pgVersion=$(${PAPI_INFRA_SCRIPTS}/$1)
+	if [[ "$pgVersion" == "$2" ]]; then
+		echo $OK
+	else
+		echo $KO
+	fi
 }
 
 
@@ -186,8 +185,8 @@ function checkPostgresql() {
 #  Script parameters 
 #   $1: The version number of postgresql to install
 function installPostgresql() {
-  printf "Install postgresql database version $postgresqlVersion \n"
-  aptgetForceInstall "postgresql-"$1
+	printf "Install postgresql database version $postgresqlVersion \n"
+	aptgetForceInstall "postgresql-"$1
 }
 
 
@@ -204,25 +203,25 @@ function installPostgresql() {
 #
 # Return all postgresql instance as a bash string convertible to array "instanceName<i>:instanceUser<i>:instanceGroup:instanceRootFS<i>"
 function listPgInstanceGroupUser() {
-  local PREFIX1="pginst"
-  local PREFIX2="${PREFIX1}usr"
-  local PREFIX3="${PREFIX1}grp"
-  allPgInstUsers=($(grep -P "^$PREFIX2\d+" /etc/passwd | cut -d':' -f1| tr '\n' ' '|uniq))
-  declare -a pgInstGroupsUsers
-  local j=1
-  for user in "${allPgInstUsers[@]}"; do
-    userIndex=${user#$PREFIX2} 
-    userGroup=$(id -Gn $user | grep -o "$PREFIX3")
-    # Check FS of pg instance normally associated to the user
-    pginstFSPrefix="/caldron/pg/${PREFIX1}"
-    instRootFS="${pginstFSPrefix}${userIndex}"
-    if [[ ! -e $instRootFS ]] ; then 
-      instRootFS=""
-    fi
-    pgInstGroupsUsers[$j]="${PREFIX1}${userIndex}:${PREFIX2}${userIndex}:${userGroup}:${instRootFS}"
-   j=$((j+1))
-  done
-  printf "%s\n" ${pgInstGroupsUsers[@]}
+	local PREFIX1="pginst"
+	local PREFIX2="${PREFIX1}usr"
+	local PREFIX3="${PREFIX1}grp"
+	allPgInstUsers=($(grep -P "^$PREFIX2\d+" /etc/passwd | cut -d':' -f1| tr '\n' ' '|uniq))
+	declare -a pgInstGroupsUsers
+	local j=1
+	for user in "${allPgInstUsers[@]}"; do
+		userIndex=${user#$PREFIX2} 
+		userGroup=$(id -Gn $user | grep -o "$PREFIX3")
+		# Check FS of pg instance normally associated to the user
+		pginstFSPrefix="/caldron/pg/${PREFIX1}"
+		instRootFS="${pginstFSPrefix}${userIndex}"
+		if [[ ! -e $instRootFS ]] ; then 
+			instRootFS=""
+		fi
+		pgInstGroupsUsers[$j]="${PREFIX1}${userIndex}:${PREFIX2}${userIndex}:${userGroup}:${instRootFS}"
+		j=$((j+1))
+	done
+	printf "%s\n" ${pgInstGroupsUsers[@]}
 }
 
 
@@ -253,32 +252,32 @@ function listPgInstanceGroupUser() {
 #   $7: domainComponent
 # Depends on openssl
 function createDomainSSLCertificat() {
-  if [[ "$(which openssl)" == "openssl:" ]]; then
-    printf "Function ${FUNCNAME[0]} needs openssl to be installed\n"
-    exit -1
-  fi
-  local CERT_ROOT_DIR=$1
-  local CERT_FILE_PREFIX=$2
-  local countryName=$3
-  local stateOrProvinceName=$4
-  local localityName=$5
-  local organizationName=$6
-  local domainComponent=$7
-  mkdir -p ${CERT_ROOT_DIR}
-  cd ${CERT_ROOT_DIR}
-  openssl req -nodes -newkey rsa:4096 -keyout ${CERT_FILE_PREFIX}.key -out ${CERT_FILE_PREFIX}.csr  -subj "/C=${countryName}/ST=${stateOrProvinceName}/L=${localityName}/O=${organizationName}/CN=${domainComponent}"
-  openssl x509 -req -days 730 -in ${CERT_FILE_PREFIX}.csr -signkey ${CERT_FILE_PREFIX}.key -out ${CERT_FILE_PREFIX}.crt
+	if [[ "$(which openssl)" == "openssl:" ]]; then
+		printf "Function ${FUNCNAME[0]} needs openssl to be installed\n"
+		exit -1
+	fi
+	local CERT_ROOT_DIR=$1
+	local CERT_FILE_PREFIX=$2
+	local countryName=$3
+	local stateOrProvinceName=$4
+	local localityName=$5
+	local organizationName=$6
+	local domainComponent=$7
+	mkdir -p ${CERT_ROOT_DIR}
+	cd ${CERT_ROOT_DIR}
+	openssl req -nodes -newkey rsa:4096 -keyout ${CERT_FILE_PREFIX}.key -out ${CERT_FILE_PREFIX}.csr  -subj "/C=${countryName}/ST=${stateOrProvinceName}/L=${localityName}/O=${organizationName}/CN=${domainComponent}"
+	openssl x509 -req -days 730 -in ${CERT_FILE_PREFIX}.csr -signkey ${CERT_FILE_PREFIX}.key -out ${CERT_FILE_PREFIX}.crt
 }
 
 #FUNC: 17
 # Check that the provided String represents a correct username or group name in linux lsb
 function isValidUsername() {
-  res=$(echo $1 | grep -Po '^([a-z_][a-z_0-9]{2,16})$')
-  if [[ "$res" == "$1"  ]]; then
-    echo $OK
-  else
-    echo $KO
-  fi		
+	res=$(echo $1 | grep -Po '^([a-z_][a-z_0-9]{2,16})$')
+	if [[ "$res" == "$1"  ]]; then
+		echo $OK
+	else
+		echo $KO
+	fi		
 }
 
 
@@ -290,9 +289,9 @@ function isValidUsername() {
 #return: OK is user exists KO otherwise. 
 function isUserExists() {
 	if [[ $(id -u $1 > /dev/null 2>&1) ]]; then
-             echo $OK
+		echo $OK
 	else
-             echo $KO
+		echo $KO
 	fi
 }
 
@@ -302,9 +301,9 @@ function isUserExists() {
 #return: OK is user exists KO otherwise. 
 function isUserExists() {
 	if [[ $(id -u $1 > /dev/null 2>&1) ]]; then
-             echo $OK
+		echo $OK
 	else
-             echo $KO
+		echo $KO
 	fi
 }
 
@@ -315,9 +314,9 @@ function isUserExists() {
 #return: OK is user exists KO otherwise. 
 function isUserExists() {
 	if [[ $(id -u $1 > /dev/null 2>&1) ]]; then
-             echo $OK
+		echo $OK
 	else
-             echo $KO
+		echo $KO
 	fi
 }
 
@@ -330,9 +329,9 @@ function isUserExists() {
 #return: OK if group exists KO otherwise. 
 function isGroupExists() {
 	if [[ $(id -g "$1" > /dev/null 2>&1) ]]; then
-             echo $OK
+		echo $OK
 	else
-             echo $KO
+		echo $KO
 	fi
 }
 
@@ -345,13 +344,49 @@ function isGroupExists() {
 #   $2: groupname in which user will be checked.
 #return: OK is user exists in group. Othewise return KO 
 function isUserInGroup() {
-  local res=$(id -Gn $1 | grep -c "\b$2\b")
-  if [[ $res -gt 0 ]]; then 
-       echo $OK
-  else
-      echo $KO
-  fi 
+	local res=$(id -Gn $1 | grep -c "\b$2\b")
+	if [[ $res -gt 0 ]]; then 
+		echo $OK
+	else
+		echo $KO
+	fi 
 }
+
+
+#FUNC: 22 
+#  Add  a user to it's group group  with password. If the group already exists set to the primary group of user to this group.
+# If the group does not exist, create and set user primary 's group to this group.
+# 
+#parameters:mandatory
+#   $1: user name to add
+#   $2: primary group name to which user will be added
+#   $3: password of user
+#return: OK if user has been created into group. Otherwise return KO 
+function createUserInGroupWithPassword() {
+	isUserRootOrSudo
+	if [[  $# != 3 ]]; then
+		printf "The Function ${FUNCNAME} must be used with 3 arguments as \n"
+		printf "Usage: ${FUNCNAME} <userName> <GroupName> <userPassword>\n"
+		printf "Example: ${FUNCNAME} papiwebadmin adimida WebAdmin*_45\n"
+		echo $KO
+	else
+		local userName=$1
+		local groupName=$2
+		local userPassword=$3
+		adduser --disabled-password --gecos "" $userName
+		echo "$userName:$userPassword" | sudo chpasswd
+
+
+		# Check if the group exist else create group 
+		if [[ $(isGroupExists $groupName) == $KO ]]; then
+			groupadd $groupName
+		fi
+		usermod -g $groupName $userName   
+		echo $OK
+	fi
+}
+
+
 
 
 #FUNC: 23
@@ -362,11 +397,30 @@ function isUserInGroup() {
 #
 #return: ipv4 of nic or empty string. 
 function getNicIpv4(){
-  local res=$(ip addr show $1 2>/dev/null | grep -Po "(?<=inet\s)((\d+\.){3}\d+)")
-  echo $res
+	local res=$(ip addr show $1 2>/dev/null | grep -Po "(?<=inet\s)((\d+\.){3}\d+)")
+}
+
+#FUNC: 24
+# Reset iptables to default
+function resetIptablesToDefault(){
+	isUserRootOrSudo
+	#IPV6
+	## set default policies to let everything in
+	ip6tables --policy INPUT   ACCEPT;
+	ip6tables --policy OUTPUT  ACCEPT;
+	ip6tables --policy FORWARD ACCEPT;
+	ip6tables -Z; # zero counters
+	ip6tables -F; # flush (delete) rules
+	ip6tables -X; # delete all extra chains
+
+	# IPv4
+	## set default policies to let everything in
+	iptables --policy INPUT   ACCEPT;
+	iptables --policy OUTPUT  ACCEPT;
+	iptables --policy FORWARD ACCEPT;
+	iptables -Z; # zero counters
+	iptables -F; # flush (delete) rules
+	iptables -X; # delete all extra chains
 }
 
 
-#FUNC: 24
-# @todo
-# Return the ipv6 of a nic interface from its name by using ip command

@@ -21,9 +21,9 @@ set -e
 
 
 ## laapi infra scripts util functions
-export PAPI_SCRIPTS_HOME=/papi/scripts/infra
+export PAPI_INFRA_SCRIPTS=/papi/scripts/infra
 export PAPI_UTIL_SCRIPT_NAME=AdipappiUtils.sh
-source ${PAPI_SCRIPTS_HOME}/${PAPI_UTIL_SCRIPT_NAME}
+source ${PAPI_INFRA_SCRIPTS}/${PAPI_UTIL_SCRIPT_NAME}
 export TOOLS_ROOT_FOLDER=/caldrons
 
 
@@ -90,10 +90,10 @@ mkdir -p ${PG_INST_ROOT_DIR}
 
 if [[ $isInstExists -eq 0  ]]; then 
   printf "Create the postgresql instance with the following configs(user, group, inst) :  $pgInstConfig"
-  $PAPI_SCRIPTS_HOME/CreatePostgresqlInstance.sh $pgInstIndex ${PG_INST_ROOT_DIR} $postgresqlVersion
-  $PAPI_SCRIPTS_HOME/RestartPostgresqlInstance.sh pginstusr${pgInstIndex} $postgresqlVersion
+  $PAPI_INFRA_SCRIPTS/CreatePostgresqlInstance.sh $pgInstIndex ${PG_INST_ROOT_DIR} $postgresqlVersion
+  $PAPI_INFRA_SCRIPTS/RestartPostgresqlInstance.sh pginstusr${pgInstIndex} $postgresqlVersion
 fi
-$PAPI_SCRIPTS_HOME/CreateDatabaseInPostgresqlInstance.sh $pgDatabaseName  $pgDatabaseUser $pgDatabasePassword  ${PG_INST_USR} $postgresqlVersion
+$PAPI_INFRA_SCRIPTS/CreateDatabaseInPostgresqlInstance.sh $pgDatabaseName  $pgDatabaseUser $pgDatabasePassword  ${PG_INST_USR} $postgresqlVersion
 
 
 #### Install redmine ruby some dependencies 
@@ -112,7 +112,7 @@ rubyInstallDefaultBin="/opt/rubies/ruby-"$rubyVersion/bin
 rdUserHome="/home/$rdUser"
 if [[ "$(isUserInGroup $rdUser $rdGroup)" == "KO" ]]; then
   printf "Create project manager admin : $rdUser  with the group $rdGroup"
-  ${PAPI_SCRIPTS_HOME}/CreateAdmGroupUsers.sh $rdUser $rdGroup 
+  ${PAPI_INFRA_SCRIPTS}/CreateAdmGroupUsers.sh $rdUser $rdGroup 
   usermod -a -G adm $rdUser
 fi
 
@@ -295,7 +295,7 @@ res=$(${rubyInstallDefaultBin}/ruby ${REDMINE_HOME}/bin/rails server webrick -b 
 #chown -R www-data:www-data ${nxtcld_root_dir} 
 #
 ### Create postgresql instance and wiftedb database instance on this postgresql instance
-#cd $PAPI_SCRIPTS_HOME 
+#cd $PAPI_INFRA_SCRIPTS 
 #./CreatePostgresqlInstance.sh  1 /apps/pg
 #./CreateDatabaseInPostgresqlInstance.sh wiftedb wiftemngr wifte*_1437 pginstusr01 9.6
 #
@@ -368,5 +368,5 @@ res=$(${rubyInstallDefaultBin}/ruby ${REDMINE_HOME}/bin/rails server webrick -b 
 #
 #Create .bash_profile for adimida user containing the papi infra tools 
 #
-#echo "export PAPI_SCRIPTS_HOME=/papi/scripts/infra" >> .bash_profile
+#echo "export PAPI_INFRA_SCRIPTS=/papi/scripts/infra" >> .bash_profile
 

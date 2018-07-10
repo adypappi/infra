@@ -14,8 +14,8 @@
 PG_CLUSTER_EXIST_MSG="cluster configuration already exists"
 SUDO_RIGHTS_MSG="This script must be run with sudo command or as root"
 
-export PAPI_SCRIPTS_HOME=/papi/scripts/infra
-source $PAPI_SCRIPTS_HOME/AdipappiUtils.sh
+export PAPI_INFRA_SCRIPTS=/papi/scripts/infra
+source $PAPI_INFRA_SCRIPTS/AdipappiUtils.sh
 # Check the user running script has sudo rights
 $(isUserRootOrSudo)
 
@@ -84,7 +84,7 @@ fi
 printf "%s\n"  "Create Postgresql Instance $USRIDX with Data Directory located at ${PGINST_DATA_DIR}"  
 
 echo -e "Create User ${USRNAME} with UID ${USRUID}\nCreate Group ${GRPNAME}"
-${PAPI_SCRIPTS_HOME}/CreateAdmGroupUsers.sh $USRNAME $GRPNAME ${PG_USERS_HOME_PARENT_DIR}
+${PAPI_INFRA_SCRIPTS}/CreateAdmGroupUsers.sh $USRNAME $GRPNAME ${PG_USERS_HOME_PARENT_DIR}
 
 # Get postgresql user id and primary group
 USRUID=$( id -u $USRNAME ) 

@@ -11,8 +11,8 @@
 #
 # Attention used the password.
 # source utilities
-export PAPI_SCRIPTS_HOME=/papi/scripts/infra
-source $PAPI_SCRIPTS_HOME/AdipappiUtils.sh
+export PAPI_INFRA_SCRIPTS=/papi/scripts/infra
+source $PAPI_INFRA_SCRIPTS/AdipappiUtils.sh
 if [[ $# -ne 1 ]]; then 
   printf "$0 <lxcNewInstanceIpAddress>\n"
   exit -1
@@ -30,7 +30,7 @@ sshpass   -p "$adimidaPassword" ssh-copy-id $newLXCInstanceIp
 
 
 printf "Deploy adipappi infrastructure client scripts into new lxc instance:\n\t(future usage of automation will remove this step)\n"
-rsync -avhz $PAPI_SCRIPTS_HOME/ $newLXCInstanceIp:$PAPI_SCRIPTS_HOME
+rsync -avhz $PAPI_INFRA_SCRIPTS/ $newLXCInstanceIp:$PAPI_INFRA_SCRIPTS
 
 printf "Copy debian adipappi aliases  file into new lxc instance"
-scp $PAPI_SCRIPTS_HOME/adipappi_debian_aliases.sh  $newLXCInstanceIp:~/
+scp $PAPI_INFRA_SCRIPTS/adipappi_debian_aliases.sh  $newLXCInstanceIp:~/
