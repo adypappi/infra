@@ -1,2 +1,6 @@
 Debian version:  9 (stretch)
+<<<<<<< HEAD
 Installer build: 20170615+deb9u4
+=======
+Installer build: 20170615+deb9u3
+>>>>>>> 15414fa769e01d88cbc81402a6c698a9a730219b

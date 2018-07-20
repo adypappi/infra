@@ -1,7 +1,11 @@
                   0fWelcome to Debian GNU/Linux!07                                09F107
 
 This is a Debian 9 (stretch) installation netboot image.
+<<<<<<< HEAD
 It was built on 20170615+deb9u4.
+=======
+It was built on 20170615+deb9u3.
+>>>>>>> 15414fa769e01d88cbc81402a6c698a9a730219b
 
 0fHELP INDEX07
 
