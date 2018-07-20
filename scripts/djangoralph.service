@@ -1,0 +1,18 @@
+[Unit] 
+Description=Django Ralph Application Server Daemon
+
+[Service]
+Type=simple
+
+#Set the pid file of ralph django server
+PIDFile=/caldrons/djangoralph/run/ralph.pid
+
+#Run the django ralph daemon
+ExecStartPre=/bin/rm -f /caldrons/djangoralph/run/ralph.pid
+ExecStart=/papi/infra/scripts/StartRalphInstServer --pidfile  /caldrons/djangoralph/run/ralph.pid
+ExecStop=/papi/infra/scripts/StopRalphInstServer
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
